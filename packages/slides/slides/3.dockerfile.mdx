@@ -1,0 +1,65 @@
+<!-- SUBTITLE: Dockerfile -->
+
+<Layout heading>
+
+# Dockerfile
+
+</Layout>
+
+---
+
+<CodeSurfer>
+
+```makefile
+FROM alpine
+```
+
+```makefile 3
+FROM alpine
+
+RUN app add node
+```
+
+```makefile 5:7,3[13:17]
+FROM alpine
+
+RUN app add node
+
+COPY package.json .
+COPY package-lock.json .
+RUN npm install
+```
+
+```makefile 5[6:20],6[6:25],3[13:17]
+FROM alpine
+
+RUN app add node
+
+COPY package.json .
+COPY package-lock.json .
+RUN npm install
+```
+
+```makefile 7[5:16],3[13:17]
+FROM alpine
+
+RUN app add node
+
+COPY package.json .
+COPY package-lock.json .
+RUN npm install
+```
+
+```makefile 9
+FROM alpine
+
+RUN app add node
+
+COPY package.json .
+COPY package-lock.json .
+RUN npm install
+
+ENTRYPOINT npm run start
+```
+
+</CodeSurfer>
