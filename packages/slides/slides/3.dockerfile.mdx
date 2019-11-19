@@ -106,7 +106,7 @@ COPY package-lock.json .
 
 RUN npm install
 
-ENTRYPOINT npm run start
+ENTRYPOINT echo "NODE: $(node -v) & NPM: $(npm -v)"
 CMD npm run start
 ```
 

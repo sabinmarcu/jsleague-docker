@@ -7,23 +7,26 @@
   "license": "MIT",
   "scripts": {
     "build": "npm-run-all build:*",
-    "build:clean": "gatsby clean & rm -rf decks && mkdir decks",
-    "build:copy": "rm -rf decks/components && mkdir -p decks/components && cp -R components/* decks/components && echo 'Copied components'",
+    "build:clean": "gatsby clean & rimraf decks && mkdir decks",
+    "build:copy": "rimraf decks/components && mkdirp decks/components && cpy components/* decks/components && echo 'Copied components'",
     "build:compile": "./scripts/compile.sh && echo 'Compiled slides'",
     "build:build": "gatsby build --prefix-paths",
     "start": "npm-run-all -p start:*",
     "start:compile": "nodemon -w slides -e mdx -x yarn build:compile",
     "start:copy": "nodemon -w components -e jsx -x yarn build:copy",
-    "start:build": "gatsby develop"
+    "start:build": "gatsby develop --host 0.0.0.0"
   },
   "devDependencies": {
+    "cpy-cli": "^2.0.0",
     "get-installed-path": "^4.0.8",
+    "mkdirp": "^0.5.1",
     "nodemon": "^1.19.4",
-    "remote-origin-url": "^2.0.0"
+    "remote-origin-url": "^2.0.0",
+    "rimraf": "^3.0.0"
   },
   "dependencies": {
-    "rebass": "^4.0.7",
     "gatsby": "^2.18.0",
-    "gatsby-theme-mdx-deck": "^3.0.13"
+    "gatsby-theme-mdx-deck": "^3.0.13",
+    "rebass": "^4.0.7"
   }
 }
