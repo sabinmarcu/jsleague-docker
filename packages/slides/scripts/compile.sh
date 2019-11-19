@@ -7,5 +7,5 @@ ROOT=$(cd $SCD/../;pwd)
 for file in $ROOT/slides/*.mdx; do 
   node $SCD/annotate.js $file
   echo "---"
-done > $ROOT/index.mdx
-echo "\n# Thank you!" >> $ROOT/index.mdx
+done > $ROOT/decks/index.mdx
+echo "\n# Thank you!" >> $ROOT/decks/index.mdx

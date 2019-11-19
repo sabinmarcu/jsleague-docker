@@ -1,5 +1,5 @@
 {
-  "name": "@jsldocker/slides",
+  "name": "slides",
   "private": false,
   "author": "Sabin Marcu <sabinmarcu@gmail.com>",
   "version": "1.0.0",
@@ -7,16 +7,22 @@
   "license": "MIT",
   "scripts": {
     "build": "npm-run-all build:*",
-    "build:clean": "rm -rf ./public",
+    "build:clean": "gatsby clean & rm -rf decks && mkdir decks",
+    "build:copy": "cp -R components decks/components",
     "build:compile": "./scripts/compile.sh",
-    "build:build": "mdx-deck build index.mdx",
-    "build:fixbase": "node ./scripts/fixbase.js",
+    "build:build": "gatsby build --prefix-paths",
     "start": "npm-run-all -p start:*",
     "start:compile": "nodemon -w slides -e mdx -x ./scripts/compile.sh",
-    "start:build": "mdx-deck index.mdx"
+    "start:build": "gatsby develop"
   },
   "devDependencies": {
+    "get-installed-path": "^4.0.8",
     "nodemon": "^1.19.4",
-    "rebass": "^4.0.7"
+    "remote-origin-url": "^2.0.0"
+  },
+  "dependencies": {
+    "rebass": "^4.0.7",
+    "gatsby": "^2.18.0",
+    "gatsby-theme-mdx-deck": "^3.0.13"
   }
 }

@@ -1,8 +1,6 @@
 import React, { Fragment } from 'react';
 import { Flex, Heading, Image } from 'rebass';
 
-import logo from '../assets/logo-flat.png'
-
 let globalTitle = 'Intro to Docker';
 let globalSubtitle = null;
 
@@ -49,7 +47,7 @@ export default ({
         alignItems="center"
       >
         <Image 
-          src={icon ? icon : logo}
+            src={icon ? icon : 'https://jsleague.ro/images/logo/logo-flat.png'}
           p={height / 5}
           sx={{
             maxWidth: "100%",
