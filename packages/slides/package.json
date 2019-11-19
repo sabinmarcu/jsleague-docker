@@ -1,0 +1,21 @@
+{
+  "name": "@jsldocker/slides",
+  "private": false,
+  "author": "Sabin Marcu <sabinmarcu@gmail.com>",
+  "version": "1.0.0",
+  "main": "index.mdx",
+  "license": "MIT",
+  "scripts": {
+    "build": "npm-run-all build:*",
+    "build:clean": "rm -rf ./public",
+    "build:compile": "./scripts/compile.sh",
+    "build:build": "mdx-deck build index.mdx",
+    "start": "npm-run-all -p start:*",
+    "start:compile": "nodemon -w slides -e mdx -x ./scripts/compile.sh",
+    "start:build": "mdx-deck index.mdx"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4",
+    "rebass": "^4.0.7"
+  }
+}
