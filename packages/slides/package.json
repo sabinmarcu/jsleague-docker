@@ -8,11 +8,12 @@
   "scripts": {
     "build": "npm-run-all build:*",
     "build:clean": "gatsby clean & rm -rf decks && mkdir decks",
-    "build:copy": "cp -R components decks/components",
-    "build:compile": "./scripts/compile.sh",
+    "build:copy": "rm -rf decks/components && mkdir -p decks/components && cp -R components/* decks/components && echo 'Copied components'",
+    "build:compile": "./scripts/compile.sh && echo 'Compiled slides'",
     "build:build": "gatsby build --prefix-paths",
     "start": "npm-run-all -p start:*",
-    "start:compile": "nodemon -w slides -e mdx -x ./scripts/compile.sh",
+    "start:compile": "nodemon -w slides -e mdx -x yarn build:compile",
+    "start:copy": "nodemon -w components -e jsx -x yarn build:copy",
     "start:build": "gatsby develop"
   },
   "devDependencies": {

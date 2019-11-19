@@ -11,6 +11,7 @@
     "packages/*"
   ],
   "scripts": {
+    "start": "lerna run start",
     "build": "npm-run-all build:*",
     "build:clean": "rm -rf ./docs",
     "build:all": "lerna run build",

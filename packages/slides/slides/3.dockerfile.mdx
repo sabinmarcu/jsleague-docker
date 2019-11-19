@@ -8,58 +8,120 @@
 
 ---
 
-<CodeSurfer>
+<Layout>
+
+<CodeSurferColumns>
+
+<Step>
 
 ```makefile
 FROM alpine
 ```
 
-```makefile 3
+<div>
+
+Any dockerfile should start with a point of origin.
+
+In this case, we're using a bare-bones alpine linux distribution.
+
+Other options are, for example: `ubuntu`, `node`, `python`, etc...
+
+</div>
+
+</Step>
+
+<Step>
+
+``` 3
 FROM alpine
 
 RUN app add node
 ```
 
-```makefile 5:7,3[13:17]
+<div>
+
+One of the most used commands is the run command. 
+
+It will simply execute a command on the container, at build-time.
+
+Basically, anything that you *can* use in the container (basic linux tools, such as: `ls`, `pwd`, `cd`, etc and subsequent installed tools) will function here.
+
+</div>
+
+</Step>
+
+<Step>
+
+``` 5:6,3[13:17]
 FROM alpine
 
 RUN app add node
 
 COPY package.json .
 COPY package-lock.json .
+```
+
+<div>
+
+The second-most used command in Dockerfiles is the *copy* command;
+
+Its purpose is to copy files from the host operating system to the container, to be used in future build steps.
+
+In this case, we're copying the dependencies files for a nodejs application.
+
+</div>
+
+</Step>
+
+<Step>
+
+``` 8,3[13:17]
+FROM alpine
+
+RUN app add node
+
+COPY package.json .
+COPY package-lock.json .
+
 RUN npm install
 ```
 
-```makefile 5[6:20],6[6:25],3[13:17]
+<div>
+
+Since we have a list of dependencies, we can now install them.
+
+</div>
+
+</Step>
+
+<Step>
+
+``` 10:11,3[13:17]
 FROM alpine
 
 RUN app add node
 
 COPY package.json .
 COPY package-lock.json .
-RUN npm install
-```
 
-```makefile 7[5:16],3[13:17]
-FROM alpine
-
-RUN app add node
-
-COPY package.json .
-COPY package-lock.json .
-RUN npm install
-```
-
-```makefile 9
-FROM alpine
-
-RUN app add node
-
-COPY package.json .
-COPY package-lock.json .
 RUN npm install
 
 ENTRYPOINT npm run start
+CMD npm run start
 ```
 
-</CodeSurfer>
+<div>
+
+To actually run something in the container, we have a few options.
+
+One is the `entrypoint` command. It defines how the container should execute if ran by itself.
+
+Another is the `cmd` command. It is similar to the `entrypoint` command, but it can be overriden while running the container.
+
+</div>
+
+</Step>
+
+</CodeSurferColumns>
+
+</Layout>
