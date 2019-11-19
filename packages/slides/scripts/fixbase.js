@@ -17,6 +17,7 @@ const {
 fs.writeFileSync(
   indexPath,
   content
+    .replace(/(href|src)="\//g, '$1="')
     .replace(/<head>/, `<head>
     <base href="https://${account}.github.io/${repo}/">
   `),
