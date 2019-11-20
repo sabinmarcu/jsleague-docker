@@ -26,6 +26,7 @@ export default ({
   headingDotsColor = "#000",
   noTitle = false, 
   noSubtitle = false,
+  noDots = false,
   title, 
   subtitle,
   background, 
@@ -104,11 +105,11 @@ export default ({
         flexDirection="column"
         flex={"1"}
         p={50}
-        maxHeight={`calc(100% - ${height + dotsHeight}px)`}
+        maxHeight={`calc(100% - ${height + (noDots ? 0 : dotsHeight)}px)`}
       >
         {children}
       </Flex>
-      <Flex
+      {!noDots && <Flex
         alignItems="center"
         justifyContent="center"
         height={dotsHeight}
@@ -167,7 +168,7 @@ export default ({
         >
           &gt;
         </Box>
-      </Flex>
+      </Flex>}
     </Flex>
   );
 };

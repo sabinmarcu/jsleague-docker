@@ -17,7 +17,12 @@
     "build:all": "lerna run build",
     "build:copy": "rimraf ./docs && mkdirp docs && cpy packages/slides/public/* docs",
     "build:nojekyll": "touch .nojekyll && touch docs/.nojekyll",
-    "build:gitdocs": "git add docs"
+    "build:wiki": "npm-run-all build:wiki:*",
+    "build:wiki:copy": "./scripts/copy.sh",
+    "build:wiki:sidebar": "./scripts/genSidebar.sh",
+    "build:wiki:clean": "./scripts/cleanSlides.sh",
+    "build:wiki:update": "./scripts/updateWiki.sh",
+    "build:git": "git add docs wiki"
   },
   "dependencies": {
     "code-surfer": "^3.0.0-beta.1"
