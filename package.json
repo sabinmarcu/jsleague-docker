@@ -13,9 +13,9 @@
   "scripts": {
     "start": "lerna run start",
     "build": "npm-run-all build:*",
-    "build:clean": "rimraf ./docs",
+    "build:clean": "rm -rf ./docs",
     "build:all": "lerna run build",
-    "build:copy": "rimraf ./docs && mkdirp docs && cp -R packages/slides/public/* docs",
+    "build:copy": "rm -rf ./docs && mkdir -p docs && cp -R packages/slides/public/* docs",
     "build:nojekyll": "touch .nojekyll && touch docs/.nojekyll",
     "build:wiki": "npm-run-all build:wiki:*",
     "build:wiki:copy": "./scripts/copy.sh",
