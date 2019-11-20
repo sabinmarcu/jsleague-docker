@@ -8,7 +8,7 @@
   "scripts": {
     "build": "npm-run-all build:*",
     "build:clean": "gatsby clean & rimraf decks && mkdir decks",
-    "build:copy": "rimraf decks/components && mkdirp decks/components && cpy components/* decks/components && echo 'Copied components'",
+    "build:copy": "rimraf decks/components && mkdirp decks/components && cp -R components/* decks/components && echo 'Copied components'",
     "build:compile": "./scripts/compile.sh && echo 'Compiled slides'",
     "build:build": "gatsby build --prefix-paths",
     "start": "npm-run-all -p start:*",
@@ -17,7 +17,6 @@
     "start:build": "gatsby develop --host 0.0.0.0"
   },
   "devDependencies": {
-    "cpy-cli": "^2.0.0",
     "get-installed-path": "^4.0.8",
     "mkdirp": "^0.5.1",
     "nodemon": "^1.19.4",
