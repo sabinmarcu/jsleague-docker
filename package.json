@@ -24,7 +24,7 @@
   "scripts": {
     "start": "lerna run start",
     "build": "npm-run-all build:*",
-    "build:clean": "rm -rf ./docs",
+    "build:clean": "rm -rf ./docs ./wiki",
     "build:all": "lerna run build",
     "build:copy": "rm -rf ./docs && mkdir -p docs && cp -R packages/slides/public/* docs",
     "build:nojekyll": "touch .nojekyll && touch docs/.nojekyll",
@@ -33,7 +33,7 @@
     "build:wiki:sidebar": "./scripts/genSidebar.sh",
     "build:wiki:clean": "./scripts/cleanSlides.sh",
     "build:wiki:update": "./scripts/updateWiki.sh",
-    "build:git": "git add docs wiki"
+    "build:git": "git add docs"
   },
   "dependencies": {
     "code-surfer": "^3.0.0-beta.1"
