@@ -1,10 +1,42 @@
+#!/usr/bin/env node
 
-#!/bin/bash
+const fs = require('fs');
+const path = require('path');
 
-SCD=$(cd `dirname $0`;pwd)
-ROOT=$(cd $SCD/../;pwd)
+const ROOT = path.resolve(__dirname, '../');
+const SLIDES = path.resolve(ROOT, 'slides');
 
-for file in $ROOT/slides/*.mdx; do 
-  node $SCD/annotate.js $file
-  echo "---"
-done | sed \$d > $ROOT/decks/index.mdx
+let output = "";
+fs.readdirSync(SLIDES)
+  .forEach(file => {
+    const content = fs.readFileSync(path.resolve(SLIDES, file), 'utf-8');
+    const titleMatch = content.match(/<!--\s+TITLE:\s+([a-zA-Z0-9-, ]*[a-zA-Z0-9])\s+-->/);
+    const title = titleMatch ? titleMatch[1] : null;
+    const subtitleMatch = content.match(/<!--\s+SUBTITLE:\s+([a-zA-Z0-9-, ]*[a-zA-Z0-9])\s+-->/);
+    const subtitle = subtitleMatch ? subtitleMatch[1] : null;
+
+    let sep = '';
+    const rep = [];
+    if (title) {
+      sep += `<SectionTitle>${title}</SectionTitle>\n`;
+      rep.push(titleMatch[0]);
+    }
+    if (subtitle) {
+      sep += `<SectionSubtitle>${subtitle}</SectionSubtitle>\n`;
+      rep.push(subtitleMatch[0]);
+    } else {
+      sep += '<SectionSubtitle />\n';
+    }
+
+    const newContent = `
+${sep}
+${content
+        .replace(new RegExp(`(${rep.join('|')})`), '')
+        .replace(/-{3,}/g, `---\n\n${sep}`)
+      }
+`;
+    output += content;
+    output += '\n\n---\n\n';
+  });
+
+fs.writeFileSync(path.resolve(ROOT, 'decks/index.mdx'), output);

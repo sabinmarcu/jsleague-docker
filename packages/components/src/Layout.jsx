@@ -92,10 +92,13 @@ export default ({
     >
       <style>
         {`
-        details, pre, pre code {
-          max-width: 100%;
-          max-height: 100%;
-        }
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
           pre, pre code {
             white-space: pre-wrap;
             ${preCodeStyles}
