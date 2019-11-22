@@ -7,7 +7,7 @@ export default ({
   highlight,
   maxWidth = 500,
 }) => (
-  <Box
+    <Box
       sx={{
         color: highlight ? 'rgba(0, 0, 0, 0.6)' : 'inherit',
         fontSize: 16,
@@ -21,4 +21,4 @@ export default ({
     >
       {children}
     </Box>
-);
+  );

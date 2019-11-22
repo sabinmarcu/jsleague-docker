@@ -13,14 +13,14 @@ const getFiles = folder => (dir => fs
 )(path.resolve(wikiDir, folder));
 
 const generateList = dir => getFiles(dir).map(([fileName, file]) => {  
-  const content = fs.readFileSync(file, "utf-8");
-  const titleMatch = content.match(/<\!--\s+TITLE:\s+([a-zA-Z0-9 ]*[a-zA-Z0-9])\s+-->/);
-  const title = titleMatch && titleMatch[1] || null;
-  const subtitleMatch = content.match(/<\!--\s+SUBTITLE:\s+([a-zA-Z0-9 ]*[a-zA-Z0-9])\s+-->/);
-  const subtitle = subtitleMatch && subtitleMatch[1] || null;
+  const content = fs.readFileSync(file, 'utf-8');
+  const titleMatch = content.match(/<!--\s+TITLE:\s+([a-zA-Z0-9-, ]*[a-zA-Z0-9])\s+-->/);
+  const title = titleMatch ? titleMatch[1] : null;
+  const subtitleMatch = content.match(/<!--\s+SUBTITLE:\s+([a-zA-Z0-9-, ]*[a-zA-Z0-9])\s+-->/);
+  const subtitle = subtitleMatch ? subtitleMatch[1] : null;
   const nameMatch = fileName.match(/([a-zA-Z0-9]+)\.md$/);
   const name = nameMatch ? nameMatch[1] : 'unknown';
-  return `- [${title || subtitle || `${name[0].toUpperCase()}${name.slice(1)}`}](${fileName.replace(/\.md$/, "")})`;
+  return `[${title || subtitle || `${name[0].toUpperCase()}${name.slice(1)}`}](${fileName.replace(/\.md$/, "")})`;
 }).join('\n\n');
 
 const exercises = generateList('exercises');
@@ -34,36 +34,71 @@ const homeContent = `
 The slides have been skimmed down from the presentation format. Things might not be the same.
 However, they should be close enough.
 
-Here are the slides: 
+<details>
+
+<summary>Here are the slides: </summary>
 
 ${slides}
+
+</details>
 
 ## Exercises
 
 We'll go through them one step as a time. 
 
-Without further ado, here is the list:
+Without further ado, 
+
+<details>
+
+<summary>here is the list:</summary>
 
 ${exercises}
+
+</details>
 
 `
 
 const sidebarContent = `
-# Links 
 
-[Home](Home)
+# [Home](Home)
+
+<details>
+
+<summary>
+
+<h1>Links</h1>
+
+</summary>
 
 [Presentation](https://sabinmarcu.github.io/jsleague-docker)
 
 [Repo](https://github.com/sabinmarcu/jsleague-docker)
 
-# Slides
+</details> 
+
+<details>
+
+<summary>
+
+<h1>Slides</h1>
+
+</Summary>
 
 ${slides}
 
-# Exercises
+</details>
+
+<details>
+
+<summary>
+
+<h1>Exercises</h1>
+
+</summary>
 
 ${exercises}
+
+</details>
 `;
 
 fs.writeFileSync(

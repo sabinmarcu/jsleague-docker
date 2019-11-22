@@ -7,4 +7,4 @@ const url = origin.sync(gitPath).match(/\/([^\.]+)\./)[1];
 module.exports = {
   plugins: ['gatsby-theme-mdx-deck'],
   pathPrefix: `/${url}`,
-}
+};
