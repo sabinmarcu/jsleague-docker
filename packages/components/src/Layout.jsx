@@ -7,6 +7,7 @@ import {
 } from 'rebass';
 import { useDeck } from 'mdx-deck';
 import { moveTo } from './utils';
+import { codeStyles } from './Code';
 
 let globalTitle = 'Intro to Docker';
 let globalSubtitle = null;
@@ -17,9 +18,7 @@ export const setDefaultTitle = (title) => {
 
 export const SectionTitle = ({ children }) => setDefaultTitle(
   (children && children.length > 0 && children) || null,
-) || (
-  <></>
-);
+) || (<></>);
 
 export const setDefaultSubtitle = (subtitle) => {
   globalSubtitle = subtitle;
@@ -27,9 +26,9 @@ export const setDefaultSubtitle = (subtitle) => {
 
 export const SectionSubtitle = ({ children }) => setDefaultSubtitle(
   (children && children.length > 0 && children) || null,
-) || (
-  <></>
-);
+) || (<></>);
+
+const camelToSnake = (str) => str.replace(/[A-Z]/g, (it) => `-${it.toLowerCase()}`);
 
 export default ({
   children,
@@ -39,12 +38,14 @@ export default ({
   headingDotsColor = '#000',
   noTitle = false,
   noSubtitle = false,
-  noDots = false,
+  noDots = true,
+  noProgress = false,
   title,
   subtitle,
   background,
   icon,
   header = false,
+  headerBackground = '#f9e476',
   style = {},
 }) => {
   const state = useDeck();
@@ -65,7 +66,15 @@ export default ({
     margin: `${dotsHeight / 10}px`,
     cursor: 'pointer',
   };
-  const wrapperColor = (header && '#f9e476') || (background && `url(${background})`) || '';
+  const wrapperColor = (header && headerBackground) || (background && `url(${background})`) || '';
+  const preCodeStyles = Object
+    .keys(codeStyles)
+    .map((key) => `${camelToSnake(key)}: inherit;`)
+    .join('\n');
+  const noPreCodeStyles = Object
+    .entries(codeStyles)
+    .map(([key, value]) => `${camelToSnake(key)}: ${value};`)
+    .join('\n');
   return (
     <Flex
       as="div"
@@ -81,6 +90,21 @@ export default ({
         ...style,
       }}
     >
+      <style>
+        {`
+        details, pre, pre code {
+          max-width: 100%;
+          max-height: 100%;
+        }
+          pre, pre code {
+            white-space: pre-wrap;
+            ${preCodeStyles}
+          }
+          code {
+            ${noPreCodeStyles}
+          }
+        `}
+      </style>
       <Flex
         justifyContent="flex-start"
         height={height}
@@ -181,6 +205,37 @@ export default ({
             &gt;
           </Box>
         </Flex>
+      )}
+      {!noProgress && (
+        <Box
+          sx={{
+            position: 'absolute',
+            right: '20px',
+            bottom: '20px',
+            fontSize: '10px',
+          }}
+        >
+          {`${index}/${length - 1}`}
+        </Box>
+      )}
+      {!noProgress && (
+        <Box
+          sx={{
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: '5px',
+          }}
+        >
+          <Box
+            sx={{
+              height: '100%',
+              background: header ? '#000' : headerBackground,
+              width: `${(index / (length - 1)) * 100}%`,
+            }}
+          />
+        </Box>
       )}
     </Flex>
   );

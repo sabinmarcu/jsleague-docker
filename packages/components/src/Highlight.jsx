@@ -4,11 +4,7 @@ import { Box } from 'rebass';
 export default ({ children, style }) => (
   <Box
     sx={{
-      color: 'inherit',
-      fontSize: 16,
-      lineHeight: '24px',
-      textAlign: 'center',
-      opacity: 0.7,
+      color: 'rgba(0, 0, 0, 1)',
       ...style,
     }}
   >

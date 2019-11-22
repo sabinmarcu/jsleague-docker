@@ -1,0 +1,92 @@
+<!-- Docker - Exec, Ps and Kill -->
+
+<Layout header>
+
+# $ docker exec
+
+## Exercises
+
+</Layout>
+
+---
+
+<Layout>
+
+## First Exercise
+
+Run the `sabinmarcu/jsld-ping-pong` image, and list the contents of the current directory.
+
+</Layout>
+
+---
+
+<Layout>
+
+NOTE: 
+- Without `-it`, you will be unable to exit the container, short of using `docker ps` and `docker kill`
+- Without `--name`, you will be unable to execute a command on the container without using `docker ps` to get the ID
+
+</Layout>
+
+---
+
+<Layout>
+
+## First Exercise (cont'd)
+
+Run the `sabinmarcu/jsld-ping-pong` image, and list the contents of the current directory.
+
+<details>
+
+<summary>Solution</summary> 
+
+```sh
+$ docker run -it --name ping-pong sabinmarcu/jsld-ping-pong
+$ docker exec ping-pong ls -al
+```
+
+</details>
+
+</Layout>
+
+---
+
+<Layout>
+
+## Second Exercise
+
+Run the `sabinmarcu/jsld-ping-pong` image, and execute the `./ping.sh` command after running.
+
+</Layout>
+
+---
+
+<Layout>
+
+NOTE: 
+- There is no need to exit the running container between this exercise and the one before
+- Without `-it`, you will be unable to exit the container, short of using `docker ps` and `docker kill`
+- Without `--name`, you will be unable to execute a command on the container without using `docker ps` to get the ID
+
+</Layout>
+
+---
+
+<Layout>
+
+## Second Exercise (cont'd)
+
+Run the `sabinmarcu/jsld-ping-pong` image, and execute the `./ping.sh` command after running.
+
+<details>
+
+<summary>Solution</summary> 
+
+```sh
+$ docker run -it --name ping-pong sabinmarcu/jsld-ping-pong
+$ docker exec ping-pong ./ping.sh
+```
+
+</details>
+
+</Layout>

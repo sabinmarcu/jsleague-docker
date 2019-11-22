@@ -1,0 +1,98 @@
+<!-- Docker - Run - Exercises -->
+
+<Layout header>
+
+# $ docker run
+
+## Exercises
+
+</Layout>
+
+---
+
+<Invert>
+
+<Layout>
+
+## Note: 
+
+Throughout the exercises we will be using
+
+```
+$ code
+``` 
+
+for code executed in the host machine, and
+
+```
+> code
+``` 
+
+for code executed in the container.
+  
+</Layout>
+
+</Invert>
+
+---
+
+<Layout>
+
+## First Exercise
+
+Spin up an alpine docker container, printing the message *"Hello World"*;
+
+<details>
+
+<summary>Solution</summary> 
+
+```sh
+$ docker run alpine echo 'hello world'
+```
+
+</details>
+
+</Layout>
+
+---
+
+<Layout>
+
+## Second Exercise
+
+Spin up an alpine docker container, listing the contents of the current folder.
+
+<details>
+
+<summary>Solution</summary> 
+
+```sh
+$ docker run alpine ls -al
+```
+
+</details>
+
+</Layout>
+
+---
+
+<Layout>
+
+## Third Exercise
+
+Spin up an alpine docker container, running in interactive mode and execute the above commands, as well as printing out the current path.
+
+<details>
+
+<summary>Solution</summary> 
+
+```sh
+$ docker run alpine ls -al
+> echo 'hello world'
+> ls -al 
+> pwd
+```
+
+</details>
+
+</Layout>
