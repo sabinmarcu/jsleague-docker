@@ -9,7 +9,7 @@ import { useDeck } from 'mdx-deck';
 import { moveTo } from './utils';
 import { codeStyles } from './Code';
 
-let globalTitle = 'Intro to Docker';
+let globalTitle = 'Intro to React Hooks';
 let globalSubtitle = null;
 
 export const setDefaultTitle = (title) => {
@@ -87,6 +87,7 @@ export default ({
         background: wrapperColor,
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
+        fontSize: "4vmin",
         ...style,
       }}
     >

@@ -12,15 +12,68 @@
 
 ## First Exercise
 
-Spin an alpine docker container, executing an `echo 'hello world'`;
+Build the `exercises/docker/arg-env` image, with default arguments, and with supplied arguments.
 
+Then, run the image, with both default arguments, and with a supplied argument.
+
+</Layout>
+
+---
+
+<Layout>
+
+## First Exercise (cont'd)
 <details>
 
 <summary>Solution</summary> 
 
 ```sh
-$ docker run alpine echo 'hello world'
+$ docker build -t <name>
+$ docker build -t <name> --build-arg NODE_VER=8
+
+$ docker run <name>
+$ docker run -e ENV_VER=25 <name>
 ```
+
+</details>
+
+</Layout>
+
+---
+
+<Layout>
+
+## Second Exercise
+
+Build and experiment with the ping example.
+
+<details>
+
+<summary>Hint</summary>
+
+One thing you could do is mount the current folder as a volume instead of copying, and change the `ping.sh` script between `docker exec` calls.
+
+</details>
+
+</Layout>
+
+---
+
+<Layout>
+
+## Third Exercise
+
+Build and experiment with the html example.
+
+<details>
+
+<summary>Hint</summary>
+
+By default, this Dockerfile will copy the `index.html` file and expose port `80` to the world. 
+
+Try to make it run with a volume mount, and bind port 80 to something accessible on the host.
+
+Change the `index.html` file, and verify that the changes are replicated in your browser.
 
 </details>
 

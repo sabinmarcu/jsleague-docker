@@ -1,0 +1,12 @@
+ARG NODE_VER=10
+
+FROM node:${NODE_VER}
+
+ARG NODE_VER
+
+ENV ENV_VER=$NODE_VER
+
+RUN echo $NODE_VER
+RUN echo $ENV_VER
+
+CMD env

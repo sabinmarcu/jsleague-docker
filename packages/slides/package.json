@@ -11,7 +11,7 @@
     "build:compile": "./scripts/compile.sh && echo 'Compiled slides'",
     "build:build": "gatsby build --prefix-paths",
     "start": "npm-run-all -p start:*",
-    "start:compile": "nodemon -w slides -e mdx -x yarn build:compile",
+    "start:compile": "nodemon -w slides -e mdx ./scripts/compile.sh",
     "start:build": "gatsby develop --host 0.0.0.0"
   },
   "devDependencies": {
@@ -21,10 +21,12 @@
     "rimraf": "^3.0.0"
   },
   "dependencies": {
-    "remote-origin-url": "^2.0.0",
-    "@jsldocker/components": "^1.0.0",
+    "@jsldocker/components": "*",
     "gatsby": "^2.18.0",
     "gatsby-theme-mdx-deck": "^3.0.13",
-    "mdx-deck": "^3.0.13"
+    "mdx-deck": "1.7.7",
+    "react": "^16.12.0",
+    "remote-origin-url": "^2.0.0",
+    "styled-components": "^4.4.1"
   }
 }

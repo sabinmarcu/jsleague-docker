@@ -1,0 +1,1350 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/><meta name="generator" content="Gatsby 2.18.1"/><title data-react-helmet="true">Intro to Docker</title><link as="script" rel="preload" href="/jsleague-docker/webpack-runtime-0c3d99a58fcb08650eb7.js"/><link as="script" rel="preload" href="/jsleague-docker/commons-c5edb9337daecf29986f.js"/><link as="script" rel="preload" href="/jsleague-docker/app-2e370b978f0e4852af0b.js"/><link as="script" rel="preload" href="/jsleague-docker/component---node-modules-gatsby-theme-mdx-deck-src-templates-deck-js-e4f186737cd86e9d9e27.js"/><link as="fetch" rel="preload" href="/jsleague-docker/page-data\print\page-data.json" crossorigin="anonymous"/></head><body><script>(function() { try {
+        var mode = localStorage.getItem('theme-ui-color-mode');
+        if (!mode) return
+        document.body.classList.add('theme-ui-' + mode);
+      } catch (e) {} })();</script><noscript id="gatsby-noscript">This app works best with JavaScript enabled.</noscript><div id="___gatsby"><div style="outline:none" tabindex="-1" role="group" id="gatsby-focus-wrapper"><style data-emotion-css="13j5fvw">body{margin:0;}</style><style data-emotion-css="bdfrlc">.css-bdfrlc{width:100vw;height:100vh;}.css-bdfrlc *{box-sizing:border-box;}</style><div class="css-bdfrlc"><div style="outline:none;height:100%" tabindex="-1" role="group"><style data-emotion-css="ooyd37">.css-ooyd37{box-sizing:border-box;width:100%;height:100vh;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;overflow:hidden;position:relative;color:var(--theme-ui-colors-text,#000);background-color:var(--theme-ui-colors-background,#fff);font-family:system-ui,sans-serif;font-size:20px;}@media screen and (min-width:40em){.css-ooyd37{font-size:24px;}}@media screen and (min-width:52em){.css-ooyd37{font-size:32px;}}@media screen and (min-width:64em){.css-ooyd37{font-size:48px;}}</style><div class="css-ooyd37"><style data-emotion-css="84kcw5">.css-84kcw5{box-sizing:border-box;margin:0;min-width:0;width:100%;height:100%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;box-sizing:border-box;background:url(https://s3.amazonaws.com/media-p.slid.es/uploads/841906/images/5646146/Screen_Shot_2019-01-05_at_1.59.35_PM.png);background-size:cover;background-repeat:no-repeat;font-size:4vmin;color:white;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;}</style><div class="css-84kcw5"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><style data-emotion-css="a6ntyr">.css-a6ntyr{box-sizing:border-box;margin:0;min-width:0;-webkit-box-pack:start;-webkit-justify-content:flex-start;-ms-flex-pack:start;justify-content:flex-start;height:50px;-webkit-flex:0 0 50px;-ms-flex:0 0 50px;flex:0 0 50px;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;}</style><div class="css-a6ntyr"><style data-emotion-css="w5l44c">.css-w5l44c{box-sizing:border-box;margin:0;min-width:0;max-width:1000px;padding-left:25px;padding-right:25px;height:100%;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;}</style><div class="css-w5l44c"><style data-emotion-css="kgt57f">.css-kgt57f{box-sizing:border-box;margin:0;min-width:0;max-width:100%;height:auto;max-width:100%;max-height:100%;background-size:cover;padding:10px;}</style><img src="https://s3.amazonaws.com/media-p.slid.es/uploads/841906/images/5646147/logo-slim-white.png" class="css-kgt57f"/></div></div><style data-emotion-css="1i7ern4">.css-1i7ern4{box-sizing:border-box;margin:0;min-width:0;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-flex:1;-ms-flex:1;flex:1;padding:50px;max-height:calc(100% - 50px);display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;}</style><div class="css-1i7ern4"><style data-emotion-css="1djqpdg">.css-1djqpdg{font-family:inherit;line-height:1.125;font-weight:700;}</style><h1 class="css-1djqpdg">Intro to Docker</h1><h4 class="css-1djqpdg">25-26 Nov. 2019</h4></div><style data-emotion-css="hllv6s">.css-hllv6s{box-sizing:border-box;margin:0;min-width:0;position:absolute;right:20px;bottom:20px;font-size:10px;}</style><div class="css-hllv6s">undefined/52</div><style data-emotion-css="1j04r96">.css-1j04r96{box-sizing:border-box;margin:0;min-width:0;position:absolute;bottom:0;left:0;right:0;height:5px;}</style><div class="css-1j04r96"><style data-emotion-css="1q81p9x">.css-1q81p9x{box-sizing:border-box;margin:0;min-width:0;height:100%;background:#f9e476;width:NaN%;}</style><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><style data-emotion-css="1f30lmu">.css-1f30lmu{box-sizing:border-box;margin:0;min-width:0;width:100%;height:100%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;box-sizing:border-box;background:#f9e476;background-size:cover;background-repeat:no-repeat;font-size:4vmin;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;}</style><div class="css-1f30lmu"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><style data-emotion-css="9gbsyt">.css-9gbsyt{box-sizing:border-box;margin:0;min-width:0;font-size:24px;font-family:inherit;font-weight:700;line-height:1.125;font-family:inherit;line-height:1.125;font-weight:700;font-size:14px;font-family:inherit;}</style><h2 class="css-9gbsyt">Intro to Docker</h2></div></div><div class="css-1i7ern4"><h1 class="css-1djqpdg">Code of Conduct</h1><div style="text-align:justify" class="css-0"><p class="css-0">We expect cooperation from all participants to help ensure a safe environment for everybody.</p><p class="css-0">We treat everyone with respect, we refrain from using offensive language and imagery, and we encourage to report any derogatory or offensive behavior to a member of the JSLeague community.</p><p class="css-0">We provide a fantastic environment for everyone to learn and share skills regardless of gender, gender identity and expression, age, sexual orientation, disability, physical appearance, body size, race, ethnicity, religion (or lack thereof), or technology choices.</p><p class="css-0">We value your attendance and your participation in the JSLeague community and expect everyone to accord to the community Code of Conduct at all JSLeague workshops and other events.</p></div></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><style data-emotion-css="uefyxr">.css-uefyxr{box-sizing:border-box;margin:0;min-width:0;height:100%;background:#000;width:NaN%;}</style><div class="css-uefyxr"></div></div></div></div><div class="css-ooyd37"><style data-emotion-css="1gwl8y3">.css-1gwl8y3{box-sizing:border-box;margin:0;min-width:0;width:100%;height:100%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;box-sizing:border-box;background-size:cover;background-repeat:no-repeat;font-size:4vmin;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;}</style><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2></div></div><div class="css-1i7ern4"><style data-emotion-css="5r4te6">.css-5r4te6{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;height:100%;text-align:center;}</style><div class="css-5r4te6"><style data-emotion-css="11ze7cv">.css-11ze7cv{width:50%;}</style><div class="css-11ze7cv"><div style="display:flex;align-items:center;justify-content:center;width:50vw" class="css-0"><style data-emotion-css="wnzno2">.css-wnzno2{max-width:100%;height:auto;object-fit:cover;}</style><img src="https://scontent.fotp3-2.fna.fbcdn.net/v/t1.0-9/30516640_1677492658984219_7229603649175945216_n.jpg?_nc_cat=100&amp;_nc_ohc=11itfIy5bbQAQkOCwfY45pBTxNccawCp9HnRKEB1Krcoza6cD_ktCxq8w&amp;_nc_ht=scontent.fotp3-2.fna&amp;oh=f7b0211986cc81d300c37de914ee18a2&amp;oe=5E421707" style="border-radius:100%;width:25vmin;height:25vmin" class="css-wnzno2"/></div></div><div class="css-11ze7cv"><div style="text-align:left;width:50vw" class="css-0"><h2 class="css-1djqpdg">Sabin Marcu</h2><li style="visibility:visible" class="css-0">Software Engineer @ R/GA</li><li style="visibility:visible" class="css-0">Anything web since &#x27;09</li><li style="visibility:visible" class="css-0">React since 2015</li><li style="visibility:visible" class="css-0">React &amp; GraphQL @ JSLeague</li></div></div></div></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1f30lmu"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><style data-emotion-css="1j09cus">.css-1j09cus{box-sizing:border-box;margin:0;min-width:0;font-size:24px;font-family:inherit;font-weight:700;line-height:1.125;font-family:inherit;line-height:1.125;font-weight:700;font-size:14px;font-family:inherit;padding-left:4px;}</style><h2 class="css-1j09cus"> - Overview</h2></div></div><div class="css-1i7ern4"><h1 class="css-1djqpdg">Overview</h1></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-uefyxr"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Overview</h2></div></div><div class="css-1i7ern4"><h2 class="css-1djqpdg">Agenda - Day 1</h2><style data-emotion-css="7qljdj">.css-7qljdj{text-align:left;font-size:24px;}</style><style data-emotion-css="17u8bpz">.css-17u8bpz{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;height:100%;text-align:center;text-align:left;font-size:24px;}</style><div class="css-17u8bpz"><div class="css-11ze7cv"><style data-emotion-css="1uk1gs8">.css-1uk1gs8{margin:0;}</style><ul class="css-1uk1gs8"><li class="css-0">General Introduction</li><li class="css-0">Comparison to other virtualization solutions</li><li class="css-0">Expose Ports</li><li class="css-0">Volume Mounts</li><li class="css-0">Running Examples &amp; Exercises</li></ul></div><div class="css-11ze7cv"><ul class="css-1uk1gs8"><li class="css-0">Dockerfile</li><li class="css-0">Arguments</li><li class="css-0">Environment Variables</li><li class="css-0">Building a docker image</li><li class="css-0">docker-compose.yml</li><li class="css-0">Running a docker-compose stack</li></ul></div></div></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Overview</h2></div></div><div class="css-1i7ern4"><h2 class="css-1djqpdg">Agenda - Day 2</h2><div class="css-17u8bpz"><div class="css-11ze7cv"><ul class="css-1uk1gs8"><li class="css-0">Lifecycle &amp; Process Management</li><li class="css-0">Interacting with running images</li><li class="css-0">Networks</li><li class="css-0">Volumes</li><li class="css-0">Types of Mounts</li></ul></div><div class="css-11ze7cv"><ul class="css-1uk1gs8"><li class="css-0">Dependency &amp; Restart Management</li><li class="css-0">Image management &amp; Tagging</li><li class="css-0">Pushing to remote</li><li class="css-0">Env files</li><li class="css-0">Dynamic configs (develop, testing, production)</li><li class="css-0">CI</li></ul></div></div></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1f30lmu"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Introduction</h2></div></div><div class="css-1i7ern4"><h1 class="css-1djqpdg">Introduction</h1></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-uefyxr"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Introduction</h2></div></div><div class="css-1i7ern4"><style data-emotion-css="kngax6">.css-kngax6{box-sizing:border-box;margin:0;min-width:0;color:inherit;font-size:16px;line-height:24px;text-align:center;opacity:0.7;max-width:500px;padding:15px 20px;}</style><div class="css-kngax6"><a as="span" style="color:inherit;font-size:30px;text-decoration:none;cursor:pointer">Docker</a> is a set of <a as="span" href="https://www.wikiwand.com/en/Platform_as_a_service" style="color:#106bcc;font-size:30px;text-decoration:none;cursor:pointer">platform as a service</a> (PaaS) products that use <a as="span" href="https://www.wikiwand.com/en/OS-level_virtualization" style="color:#106bcc;font-size:30px;text-decoration:none;cursor:pointer">OS-level virtualization</a> to deliver software in packages called containers. <a as="span" href="https://www.wikiwand.com/en/OS-level_virtualization" style="color:#106bcc;font-size:30px;text-decoration:none;cursor:pointer">Containers</a> are isolated from one another and bundle their own software, libraries and configuration files; they can communicate with each other through <a as="span" href="https://docs.docker.com/network/" style="color:#106bcc;font-size:30px;text-decoration:none;cursor:pointer">well defined channels</a>. All containers are run by a single <a as="span" href="https://www.wikiwand.com/en/Kernel_(operating_system)" style="color:#106bcc;font-size:30px;text-decoration:none;cursor:pointer">operating-system kernel</a> and are thus more lightweight than <a as="span" href="https://www.wikiwand.com/en/Virtual_machine" style="color:#106bcc;font-size:30px;text-decoration:none;cursor:pointer">virtual machines</a>.</div></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Introduction</h2></div></div><div class="css-1i7ern4"><div class="css-5r4te6"><div class="css-11ze7cv"><div class="css-kngax6"><a as="span" style="color:inherit;font-size:30px;text-decoration:none;cursor:pointer">Docker</a> is a set of <a as="span" href="https://www.wikiwand.com/en/Platform_as_a_service" style="color:#106bcc;font-size:30px;text-decoration:none;cursor:pointer">platform as a service</a> (PaaS) products that use <a as="span" href="https://www.wikiwand.com/en/OS-level_virtualization" style="color:inherit;font-size:30px;text-decoration:none;cursor:pointer">OS-level virtualization</a> to deliver software in packages called containers. <a as="span" href="https://www.wikiwand.com/en/OS-level_virtualization" style="color:inherit;font-size:30px;text-decoration:none;cursor:pointer">Containers</a> are isolated from one another and bundle their own software, libraries and configuration files; they can communicate with each other through <a as="span" href="https://docs.docker.com/network/" style="color:inherit;font-size:30px;text-decoration:none;cursor:pointer">well defined channels</a>. All containers are run by a single <a as="span" href="https://www.wikiwand.com/en/Kernel_(operating_system)" style="color:inherit;font-size:30px;text-decoration:none;cursor:pointer">operating-system kernel</a> and are thus more lightweight than <a as="span" href="https://www.wikiwand.com/en/Virtual_machine" style="color:inherit;font-size:30px;text-decoration:none;cursor:pointer">virtual machines</a>.</div></div><div class="css-11ze7cv"><div class="css-kngax6"><a as="span" style="color:inherit;font-size:30px;text-decoration:none;cursor:pointer">Platform as a Service (PaaS)</a> or <a as="span" style="color:inherit;font-size:30px;text-decoration:none;cursor:pointer">Application Platform as a Service (aPaaS)</a> or platform-based service is a category of <a as="span" href="https://ww.wikiwand.com/en/Cloud_computing#Service_models" style="color:#106bcc;font-size:30px;text-decoration:none;cursor:pointer">cloud computing services</a> that provides a <a as="span" href="www.wikiwand.com/en/Computing_platform" style="color:#106bcc;font-size:30px;text-decoration:none;cursor:pointer">platform</a> allowing customers to <a as="span" style="color:inherit;font-size:30px;text-decoration:none;cursor:pointer">develop, run and manage applications</a> without the complexity of building and maintaining the infrastructure typically associated with developing and launching an app.</div></div></div></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Introduction</h2></div></div><div class="css-1i7ern4"><div class="css-kngax6"><a as="span" style="color:inherit;font-size:30px;text-decoration:none;cursor:pointer">Docker</a> is a set of <a as="span" href="https://www.wikiwand.com/en/Platform_as_a_service" style="color:inherit;font-size:30px;text-decoration:none;cursor:pointer">platform as a service</a> (PaaS) products that use <a as="span" href="https://www.wikiwand.com/en/OS-level_virtualization" style="color:#106bcc;font-size:30px;text-decoration:none;cursor:pointer">OS-level virtualization</a> to deliver software in packages called containers. <a as="span" href="https://www.wikiwand.com/en/OS-level_virtualization" style="color:#106bcc;font-size:30px;text-decoration:none;cursor:pointer">Containers</a> are isolated from one another and bundle their own software, libraries and configuration files; they can communicate with each other through <a as="span" href="https://docs.docker.com/network/" style="color:inherit;font-size:30px;text-decoration:none;cursor:pointer">well defined channels</a>. All containers are run by a single <a as="span" href="https://www.wikiwand.com/en/Kernel_(operating_system)" style="color:#106bcc;font-size:30px;text-decoration:none;cursor:pointer">operating-system kernel</a> and are thus more lightweight than <a as="span" href="https://www.wikiwand.com/en/Virtual_machine" style="color:#106bcc;font-size:30px;text-decoration:none;cursor:pointer">virtual machines</a>.</div></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Introduction</h2></div></div><div class="css-1i7ern4"><img src="https://s3.amazonaws.com/media-p.slid.es/uploads/776/images/6787931/pasted-from-clipboard.png" alt="Docker VM Comparison" class="css-wnzno2"/></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Introduction</h2></div></div><div class="css-1i7ern4"><div class="css-kngax6"><a as="span" style="color:inherit;font-size:30px;text-decoration:none;cursor:pointer">Docker</a> is a set of <a as="span" href="https://www.wikiwand.com/en/Platform_as_a_service" style="color:inherit;font-size:30px;text-decoration:none;cursor:pointer">platform as a service</a> (PaaS) products that use <a as="span" href="https://www.wikiwand.com/en/OS-level_virtualization" style="color:inherit;font-size:30px;text-decoration:none;cursor:pointer">OS-level virtualization</a> to deliver software in packages called containers. <a as="span" href="https://www.wikiwand.com/en/OS-level_virtualization" style="color:inherit;font-size:30px;text-decoration:none;cursor:pointer">Containers</a> are isolated from one another and bundle their own software, libraries and configuration files; they can communicate with each other through <a as="span" href="https://docs.docker.com/network/" style="color:#106bcc;font-size:30px;text-decoration:none;cursor:pointer">well defined channels</a>. All containers are run by a single <a as="span" href="https://www.wikiwand.com/en/Kernel_(operating_system)" style="color:inherit;font-size:30px;text-decoration:none;cursor:pointer">operating-system kernel</a> and are thus more lightweight than <a as="span" href="https://www.wikiwand.com/en/Virtual_machine" style="color:inherit;font-size:30px;text-decoration:none;cursor:pointer">virtual machines</a>.</div></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Introduction</h2></div></div><div class="css-1i7ern4"><img src="https://miro.medium.com/max/2798/1*3dH8hl3ovZj5H9zuHShAXQ.png" alt="Docker Networking" class="css-wnzno2"/></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Introduction</h2></div></div><div class="css-1i7ern4"><h1 class="css-1djqpdg">Conclusion</h1><p style="visibility:visible" class="css-0">Docker is a virtualization solution, more lightweight, therefore easier to use in development and production, as well as to scale, than existing VM solutions. Just by using docker you can create a self-contained ecosystem that can scale easily, and be deployed prebuilt / pre-configured, with little or no overhead.</p></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1f30lmu"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2></div></div><div class="css-1i7ern4"><h1 class="css-1djqpdg">Crash Course</h1></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-uefyxr"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2></div></div><div class="css-1i7ern4"><h2 class="css-1djqpdg">What have we learned?</h2><ul class="css-1uk1gs8"><li style="visibility:visible" class="css-0"><style data-emotion-css="1ulfnpr">.css-1ulfnpr{box-sizing:border-box;margin:0;min-width:0;padding:.2em .4em;margin:0;font-size:85%;background-color:rgba(27,31,35,.05);border-radius:3px;color:#e01e5a;}</style><span class="css-1ulfnpr">docker</span> is the main command used.</li><li style="visibility:visible" class="css-0">To execute something, we need to use the <span class="css-1ulfnpr">docker run</span> command</li><li style="visibility:visible" class="css-0">To build something, we need to use the <span class="css-1ulfnpr">docker build</span> command</li><li style="visibility:visible" class="css-0">To see what docker processes (containers) are running use the <span class="css-1ulfnpr">docker ps</span> command</li><li style="visibility:visible" class="css-0">To kill a process, we need to use the <span class="css-1ulfnpr">docker kill</span> command</li><li style="visibility:visible" class="css-0">To execute code on an already existing container, we need to use the <span class="css-1ulfnpr">docker exec</span> command</li><li style="visibility:visible" class="css-0">All of these commands have a lot of arguments</li></ul></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1f30lmu"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Docker</h2></div></div><div class="css-1i7ern4"><h1 class="css-1djqpdg">Docker</h1></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-uefyxr"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Docker</h2></div></div><div class="css-1i7ern4"><h1 class="css-1djqpdg">How does it work?</h1></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Docker</h2></div></div><div class="css-1i7ern4"><h1 class="css-1djqpdg">Terminology</h1><ul class="css-1uk1gs8"><li class="css-0"><style data-emotion-css="vgof0f">.css-vgof0f{font-family:"Roboto Mono",Menlo,monospace;}</style><code class="css-vgof0f">container</code> The completed container. Think of it as a running VM.</li><li class="css-0"><code class="css-vgof0f">image</code> The built image that the container will be running.</li><li class="css-0"><code class="css-vgof0f">build steps</code> The steps used to build an image</li><li class="css-0"><code class="css-vgof0f">Dockerfile</code> A recipy based describing the build steps</li></ul></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Docker</h2></div></div><div class="css-1i7ern4"><h2 class="css-1djqpdg">The &quot;Ikea&quot; of Docker</h2><ol class="css-1uk1gs8"><li class="css-0"><code class="css-vgof0f">Dockerfile</code>: It all starts with such a file</li><li class="css-0">Someone(thing) will build an <code class="css-vgof0f">image</code> based on the <code class="css-vgof0f">Dockerfile</code>, Docker executing the <code class="css-vgof0f">build steps</code> described</li><li class="css-0">Someone will use the <code class="css-vgof0f">image</code> to run a <code class="css-vgof0f">container</code></li></ol></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Docker</h2></div></div><div class="css-1i7ern4"><h2 class="css-1djqpdg">Some more concepts</h2><ol class="css-1uk1gs8"><li class="css-0">Network - A virtual network created between containers</li><li class="css-0">Volume - A shared (if specified) drive/volume/directory</li></ol></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1f30lmu"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Docker - Run</h2></div></div><div class="css-1i7ern4"><h1 class="css-1djqpdg">$ docker run</h1></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-uefyxr"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Docker - Run</h2></div></div><div class="css-1i7ern4"><h2 class="css-1djqpdg">Arguments:</h2><ul class="css-1uk1gs8"><li style="visibility:visible" class="css-0"><span class="css-1ulfnpr">--name</span>: Will give the container a name</li><li style="visibility:visible" class="css-0"><span class="css-1ulfnpr">-i</span>: Will run in interactive mode</li><li style="visibility:visible" class="css-0"><span class="css-1ulfnpr">-t</span>: Will run in tty mode (will allow terminal use while interactive)</li><li style="visibility:visible" class="css-0"><span class="css-1ulfnpr">-it</span>: A combination of the above. In translation: open a terminal connection</li><li style="visibility:visible" class="css-0"><span class="css-1ulfnpr">-d</span>: Will run in daemon mode (background process)</li><li style="visibility:visible" class="css-0"><span class="css-1ulfnpr">--rm</span>: Will remove the container on exit</li><li style="visibility:visible" class="css-0"><span class="css-1ulfnpr">&lt;command&gt;</span>: Will override the default command</li></ul></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1f30lmu"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Docker - Run - Exercises</h2></div></div><div class="css-1i7ern4"><h1 class="css-1djqpdg">$ docker run</h1><h2 class="css-1djqpdg">Exercises</h2></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-uefyxr"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Docker - Run - Exercises</h2></div></div><div class="css-1i7ern4"><h2 class="css-1djqpdg">Note:</h2><p class="css-0">Throughout the exercises we will be using</p><style data-emotion-css="1gxdjd5">.css-1gxdjd5{font-family:"Roboto Mono",Menlo,monospace;padding:16px;}</style><pre class="css-1gxdjd5"><code class="css-vgof0f">$ code
+</code></pre><p class="css-0">for code executed in the host machine, and</p><pre class="css-1gxdjd5"><code class="css-vgof0f">&gt; code
+</code></pre><p class="css-0">for code executed in the container.</p></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Docker - Run - Exercises</h2></div></div><div class="css-1i7ern4"><h2 class="css-1djqpdg">First Exercise</h2><p class="css-0">Spin up an alpine docker container, printing the message <em class="css-0">&quot;Hello World&quot;</em>;</p><details><summary>Solution</summary><pre class="css-1gxdjd5"><code class="language-sh css-vgof0f">$ docker run alpine echo &#x27;hello world&#x27;
+</code></pre></details></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Docker - Run - Exercises</h2></div></div><div class="css-1i7ern4"><h2 class="css-1djqpdg">Second Exercise</h2><p class="css-0">Spin up an alpine docker container, listing the contents of the current folder.</p><details><summary>Solution</summary><pre class="css-1gxdjd5"><code class="language-sh css-vgof0f">$ docker run alpine ls -al
+</code></pre></details></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Docker - Run - Exercises</h2></div></div><div class="css-1i7ern4"><h2 class="css-1djqpdg">Third Exercise</h2><p class="css-0">Spin up an alpine docker container, running in interactive mode and execute the above commands, as well as printing out the current path.</p><details><summary>Solution</summary><pre class="css-1gxdjd5"><code class="language-sh css-vgof0f">$ docker run alpine ls -al
+&gt; echo &#x27;hello world&#x27;
+&gt; ls -al 
+&gt; pwd
+</code></pre></details></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1f30lmu"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Docker - Build</h2></div></div><div class="css-1i7ern4"><h1 class="css-1djqpdg">$ docker build</h1></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-uefyxr"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Docker - Build</h2></div></div><div class="css-1i7ern4"><h2 class="css-1djqpdg">Arguments:</h2><ul class="css-1uk1gs8"><li style="visibility:visible" class="css-0"><span class="css-1ulfnpr">-t</span>: Will give the image a name</li><li style="visibility:visible" class="css-0"><span class="css-1ulfnpr">--build-arg</span>: An argument used in build steps</li><li style="visibility:visible" class="css-0"><span class="css-1ulfnpr">-f</span>: The name of the Dockerfile (ex: Dockerfile.prod)</li><li style="visibility:visible" class="css-0"><span class="css-1ulfnpr">--no-cache</span>: Attempt to build with no cache</li><li style="visibility:visible" class="css-0"><span class="css-1ulfnpr">&lt;path&gt;</span>: The path to the Dockerfile / context</li></ul></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1f30lmu"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Docker - Build - Exercises</h2></div></div><div class="css-1i7ern4"><h1 class="css-1djqpdg">$ docker build</h1><h2 class="css-1djqpdg">Exercises</h2></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-uefyxr"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Docker - Build - Exercises</h2></div></div><div class="css-1i7ern4"><h2 class="css-1djqpdg">First Exercise</h2><p class="css-0">Build the <code class="css-vgof0f">exercises/docker/build</code> exercise.</p><p class="css-0">In the above mentioned path, you will find a docker file. Your task is to only build the image.</p><details><summary>Solution</summary><pre class="css-1gxdjd5"><code class="language-sh css-vgof0f">$ docker build -t &amp;lt;name&amp;gt; .
+</code></pre></details></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Docker - Build - Exercises</h2></div></div><div class="css-1i7ern4"><h2 class="css-1djqpdg">First Exercise</h2><p class="css-0">Run the image you&#x27;ve built earlier.</p><details><summary>Solution</summary><pre class="css-1gxdjd5"><code class="language-sh css-vgof0f">$ docker run &amp;lt;name&amp;gt;
+</code></pre></details></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1f30lmu"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Docker - Exec, Ps and Kill</h2></div></div><div class="css-1i7ern4"><h1 class="css-1djqpdg">$ docker exec</h1></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-uefyxr"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Docker - Exec, Ps and Kill</h2></div></div><div class="css-1i7ern4"><h2 class="css-1djqpdg">Arguments:</h2><ul class="css-1uk1gs8"><li style="visibility:visible" class="css-0"><span class="css-1ulfnpr">&lt;id&gt;</span>: The ID or name of the container</li><li style="visibility:visible" class="css-0"><span class="css-1ulfnpr">&lt;command&gt;</span>: The command to be run</li></ul></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1f30lmu"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Docker - Exec, Ps and Kill</h2></div></div><div class="css-1i7ern4"><h1 class="css-1djqpdg">$ docker ps</h1></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-uefyxr"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Docker - Exec, Ps and Kill</h2></div></div><div class="css-1i7ern4"><h2 class="css-1djqpdg">Arguments:</h2><ul class="css-1uk1gs8"><li style="visibility:visible" class="css-0"><span class="css-1ulfnpr">-a</span>: Will list all containers (including inactive)</li><li style="visibility:visible" class="css-0"><span class="css-1ulfnpr">-q</span>: Will only print the IDs of the containers</li></ul></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1f30lmu"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Docker - Exec, Ps and Kill</h2></div></div><div class="css-1i7ern4"><h1 class="css-1djqpdg">$ docker kill</h1></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-uefyxr"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Docker - Exec, Ps and Kill</h2></div></div><div class="css-1i7ern4"><h2 class="css-1djqpdg">Arguments:</h2><ul class="css-1uk1gs8"><li style="visibility:visible" class="css-0"><span class="css-1ulfnpr">&lt;id(s)&gt;</span>: The ID (or list of IDs) of containers to be killed</li></ul></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1f30lmu"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Docker - Exec, Ps and Kill - Exercises</h2></div></div><div class="css-1i7ern4"><h1 class="css-1djqpdg">$ docker exec</h1><h2 class="css-1djqpdg">Exercises</h2></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-uefyxr"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Docker - Exec, Ps and Kill - Exercises</h2></div></div><div class="css-1i7ern4"><h2 class="css-1djqpdg">First Exercise</h2><p class="css-0">Run the <code class="css-vgof0f">sabinmarcu/jsld-ping-pong</code> image, and list the contents of the current directory.</p></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Docker - Exec, Ps and Kill - Exercises</h2></div></div><div class="css-1i7ern4"><p class="css-0">NOTE: </p><ul class="css-1uk1gs8"><li class="css-0">Without <code class="css-vgof0f">-it</code>, you will be unable to exit the container, short of using <code class="css-vgof0f">docker ps</code> and <code class="css-vgof0f">docker kill</code></li><li class="css-0">Without <code class="css-vgof0f">--name</code>, you will be unable to execute a command on the container without using <code class="css-vgof0f">docker ps</code> to get the ID</li></ul></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Docker - Exec, Ps and Kill - Exercises</h2></div></div><div class="css-1i7ern4"><h2 class="css-1djqpdg">First Exercise (cont&#x27;d)</h2><p class="css-0">Run the <code class="css-vgof0f">sabinmarcu/jsld-ping-pong</code> image, and list the contents of the current directory.</p><details><summary>Solution</summary><pre class="css-1gxdjd5"><code class="language-sh css-vgof0f">$ docker run -it --name ping-pong sabinmarcu/jsld-ping-pong
+$ docker exec ping-pong ls -al
+</code></pre></details></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Docker - Exec, Ps and Kill - Exercises</h2></div></div><div class="css-1i7ern4"><h2 class="css-1djqpdg">Second Exercise</h2><p class="css-0">Run the <code class="css-vgof0f">sabinmarcu/jsld-ping-pong</code> image, and execute the <code class="css-vgof0f">./ping.sh</code> command after running.</p></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Docker - Exec, Ps and Kill - Exercises</h2></div></div><div class="css-1i7ern4"><p class="css-0">NOTE: </p><ul class="css-1uk1gs8"><li class="css-0">There is no need to exit the running container between this exercise and the one before</li><li class="css-0">Without <code class="css-vgof0f">-it</code>, you will be unable to exit the container, short of using <code class="css-vgof0f">docker ps</code> and <code class="css-vgof0f">docker kill</code></li><li class="css-0">Without <code class="css-vgof0f">--name</code>, you will be unable to execute a command on the container without using <code class="css-vgof0f">docker ps</code> to get the ID</li></ul></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Docker - Exec, Ps and Kill - Exercises</h2></div></div><div class="css-1i7ern4"><h2 class="css-1djqpdg">Second Exercise (cont&#x27;d)</h2><p class="css-0">Run the <code class="css-vgof0f">sabinmarcu/jsld-ping-pong</code> image, and execute the <code class="css-vgof0f">./ping.sh</code> command after running.</p><details><summary>Solution</summary><pre class="css-1gxdjd5"><code class="language-sh css-vgof0f">$ docker run -it --name ping-pong sabinmarcu/jsld-ping-pong
+$ docker exec ping-pong ./ping.sh
+</code></pre></details></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1f30lmu"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Dockerfile</h2></div></div><div class="css-1i7ern4"><h1 class="css-1djqpdg">Dockerfile</h1></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-uefyxr"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Dockerfile</h2></div></div><div class="css-1i7ern4"><div style="width:100vw;max-width:100%;height:100vh;display:flex;flex-direction:row;justify-content:center;align-items:center;font-size:0.8em;position:relative" class="cs-col-layout"><div style="flex:1;overflow:hidden;height:100%"><div style="overflow:auto;height:100%;width:100%"><div style="overflow:auto;height:100%;width:100%"><div class="cs-container" style="width:100%;height:100%;max-height:100%;position:relative"><style data-emotion-css="18nwwvn">.css-18nwwvn{color:var(--theme-ui-colors-text,#000);background-color:var(--theme-ui-colors-background,#fff);}.css-18nwwvn .token-comment,.css-18nwwvn .token-cdata,.css-18nwwvn .token-doctype{font-style:italic;}.css-18nwwvn .token-builtin,.css-18nwwvn .token-changed,.css-18nwwvn .token-keyword,.css-18nwwvn .token-punctuation,.css-18nwwvn .token-operator,.css-18nwwvn .token-tag,.css-18nwwvn .token-deleted,.css-18nwwvn .token-string,.css-18nwwvn .token-attr-value,.css-18nwwvn .token-char,.css-18nwwvn .token-number,.css-18nwwvn .token-inserted{color:var(--theme-ui-colors-primary,#07c);}</style><pre class="cs-content css-18nwwvn" style="margin:0;height:100%;overflow:hidden"><style data-emotion-css="1nfcuqn">.css-1nfcuqn{color:var(--theme-ui-colors-text,#000);background-color:var(--theme-ui-colors-background,#fff);}</style><code class="cs-scaled-content css-1nfcuqn" style="display:block;height:100%;transform:scale(1);transform-origin:center 0px"><div></div><div style="overflow:hidden;transform:translateX(250px);height:0;opacity:0"><div style="display:inline-block" class="cs-line cs-line-2"><span class="token-plain">​</span></div></div><div style="overflow:hidden;height:100px;opacity:1;transform:translateX(0px)"><div style="display:inline-block" class="cs-line cs-line-19"><span class="token-plain">FROM alpine</span></div></div><div style="overflow:hidden;transform:translateX(250px);height:0;opacity:0"><div style="display:inline-block" class="cs-line cs-line-25"><span class="token-plain">R</span><span class="token-plain">U</span><span class="token-plain">N</span><span class="token-plain"> </span><span class="token-plain">a</span><span class="token-plain">p</span><span class="token-plain">p</span><span class="token-plain"> </span><span class="token-plain">a</span><span class="token-plain">d</span><span class="token-plain">d</span><span class="token-plain"> </span><span class="token-plain">n</span><span class="token-plain">o</span><span class="token-plain">d</span><span class="token-plain">e</span></div></div><div></div></code></pre></div></div><div style="overflow:auto;height:100%;width:100%"><div class="cs-container" style="width:100%;height:100%;max-height:100%;position:relative"><pre class="cs-content css-18nwwvn" style="margin:0;height:100%;overflow:hidden"><code class="cs-scaled-content css-1nfcuqn" style="display:block;height:100%;transform:scale(1);transform-origin:center 0px"><div></div><div style="overflow:hidden"><div style="display:inline-block" class="cs-line cs-line-2"><span class="token-plain">​</span></div></div><div style="overflow:hidden;height:100px;opacity:0.3;transform:translateX(0px)"><div style="display:inline-block" class="cs-line cs-line-25"><span class="token-plain">R</span><span class="token-plain">U</span><span class="token-plain">N</span><span class="token-plain"> </span><span class="token-plain">a</span><span class="token-plain">p</span><span class="token-plain">p</span><span class="token-plain"> </span><span class="token-plain">a</span><span class="token-plain">d</span><span class="token-plain">d</span><span class="token-plain"> </span><span class="token-plain">n</span><span class="token-plain">o</span><span class="token-plain">d</span><span class="token-plain">e</span></div></div><div style="overflow:hidden;transform:translateX(250px);height:0;opacity:0"><div style="display:inline-block" class="cs-line cs-line-30"><span class="token-plain">COPY package-lock.json .</span></div></div><div></div></code></pre></div></div><div style="overflow:auto;height:100%;width:100%"><div class="cs-container" style="width:100%;height:100%;max-height:100%;position:relative"><pre class="cs-content css-18nwwvn" style="margin:0;height:100%;overflow:hidden"><code class="cs-scaled-content css-1nfcuqn" style="display:block;height:100%;transform:scale(1);transform-origin:center 0px"><div></div><div style="overflow:hidden"><div style="display:inline-block" class="cs-line cs-line-2"><span class="token-plain">​</span></div></div><div style="overflow:hidden;opacity:0.3"><div style="display:inline-block" class="cs-line cs-line-30"><span class="token-plain">COPY package-lock.json .</span></div></div><div></div></code></pre></div></div><div style="overflow:auto;height:100%;width:100%"><div class="cs-container" style="width:100%;height:100%;max-height:100%;position:relative"><pre class="cs-content css-18nwwvn" style="margin:0;height:100%;overflow:hidden"><code class="cs-scaled-content css-1nfcuqn" style="display:block;height:100%;transform:scale(1);transform-origin:center 0px"><div></div><div style="overflow:hidden"><div style="display:inline-block" class="cs-line cs-line-2"><span class="token-plain">​</span></div></div><div style="overflow:hidden;height:100px;opacity:0.3;transform:translateX(0px)"><div style="display:inline-block" class="cs-line cs-line-30"><span class="token-plain">COPY package-lock.json .</span></div></div><div style="overflow:hidden;transform:translateX(250px);height:0;opacity:0"><div style="display:inline-block" class="cs-line cs-line-34"><span class="token-plain">ENTRYPOINT echo </span><span class="token-string">&quot;NODE: $(node -v) &amp; NPM: $(npm -v)&quot;</span></div></div><div></div></code></pre></div></div><div style="overflow:auto;height:100%;width:100%"><div class="cs-container" style="width:100%;height:100%;max-height:100%;position:relative"><pre class="cs-content css-18nwwvn" style="margin:0;height:100%;overflow:hidden"><code class="cs-scaled-content css-1nfcuqn" style="display:block;height:100%;transform:scale(1);transform-origin:center 0px"><div></div><div style="overflow:hidden"><div style="display:inline-block" class="cs-line cs-line-2"><span class="token-plain">​</span></div></div><div style="overflow:hidden;opacity:0.3"><div style="display:inline-block" class="cs-line cs-line-34"><span class="token-plain">ENTRYPOINT echo </span><span class="token-string">&quot;NODE: $(node -v) &amp; NPM: $(npm -v)&quot;</span></div></div><div></div></code></pre></div></div><div style="overflow:auto;height:100%;width:100%"><div class="cs-container" style="width:100%;height:100%;max-height:100%;position:relative"><pre class="cs-content css-18nwwvn" style="margin:0;height:100%;overflow:hidden"><code class="cs-scaled-content css-1nfcuqn" style="display:block;height:100%;transform:scale(1);transform-origin:center 0px"><div></div><div style="overflow:hidden"><div style="display:inline-block" class="cs-line cs-line-2"><span class="token-plain">​</span></div></div><div style="overflow:hidden;transform:translateX(250px);height:0;opacity:0"><div style="display:inline-block" class="cs-line cs-line-27"><span class="token-plain" style="opacity:0">ENTRYPOINT mongod &amp;</span></div></div><div style="overflow:hidden;height:100px;opacity:0.3;transform:translateX(0px)"><div style="display:inline-block" class="cs-line cs-line-34"><span class="token-plain">ENTRYPOINT echo </span><span class="token-string">&quot;NODE: $(node -v) &amp; NPM: $(npm -v)&quot;</span></div></div><div></div></code></pre></div></div><div style="overflow:auto;height:100%;width:100%"><div class="cs-container" style="width:100%;height:100%;max-height:100%;position:relative"><pre class="cs-content css-18nwwvn" style="margin:0;height:100%;overflow:hidden"><code class="cs-scaled-content css-1nfcuqn" style="display:block;height:100%;transform:scale(1);transform-origin:center 0px"><div></div><div style="overflow:hidden;opacity:1"><div style="display:inline-block" class="cs-line cs-line-2"><span class="token-plain">​</span></div></div><div style="overflow:hidden;transform:translateX(250px);height:0;opacity:0"><div style="display:inline-block" class="cs-line cs-line-22"><span class="token-plain">RUN mkdir -p /www/pages</span></div></div><div style="overflow:hidden;height:100px;opacity:1;transform:translateX(0px)"><div style="display:inline-block" class="cs-line cs-line-27"><span class="token-plain" style="opacity:0.3">ENTRYPOINT mongod &amp;</span></div></div><div></div></code></pre></div></div><div style="overflow:auto;height:100%;width:100%"><div class="cs-container" style="width:100%;height:100%;max-height:100%;position:relative"><pre class="cs-content css-18nwwvn" style="margin:0;height:100%;overflow:hidden"><code class="cs-scaled-content css-1nfcuqn" style="display:block;height:100%;transform:scale(1);transform-origin:center 0px"><div></div><div style="overflow:hidden;opacity:0.3"><div style="display:inline-block" class="cs-line cs-line-2"><span class="token-plain">​</span></div></div><div style="overflow:hidden;opacity:1"><div style="display:inline-block" class="cs-line cs-line-22"><span class="token-plain">RUN mkdir -p /www/pages</span></div></div><div></div></code></pre></div></div><div style="overflow:auto;height:100%;width:100%"><div class="cs-container" style="width:100%;height:100%;max-height:100%;position:relative"><pre class="cs-content css-18nwwvn" style="margin:0;height:100%;overflow:hidden"><code class="cs-scaled-content css-1nfcuqn" style="display:block;height:100%;transform:scale(1);transform-origin:center 0px"><div></div><div style="overflow:hidden;opacity:0.3"><div style="display:inline-block" class="cs-line cs-line-2"><span class="token-plain">​</span></div></div><div style="overflow:hidden;opacity:0.3"><div style="display:inline-block" class="cs-line cs-line-22"><span class="token-plain">RUN mkdir -p /www/pages</span></div></div><div></div></code></pre></div></div><div style="overflow:auto;height:100%;width:100%"><div class="cs-container" style="width:100%;height:100%;max-height:100%;position:relative"><pre class="cs-content css-18nwwvn" style="margin:0;height:100%;overflow:hidden"><code class="cs-scaled-content css-1nfcuqn" style="display:block;height:100%;transform:scale(1);transform-origin:center 0px"><div></div><div style="overflow:hidden"><div style="display:inline-block" class="cs-line cs-line-2"><span class="token-plain">​</span></div></div><div style="overflow:hidden;opacity:0.3"><div style="display:inline-block" class="cs-line cs-line-22"><span class="token-plain">RUN mkdir -p /www/pages</span></div></div><div></div></code></pre></div></div><div style="overflow:auto;height:100%;width:100%"><div class="cs-container" style="width:100%;height:100%;max-height:100%;position:relative"><pre class="cs-content css-18nwwvn" style="margin:0;height:100%;overflow:hidden"><code class="cs-scaled-content css-1nfcuqn" style="display:block;height:100%;transform:scale(1);transform-origin:center 0px"><div></div><div style="overflow:hidden"><div style="display:inline-block" class="cs-line cs-line-2"><span class="token-plain">​</span></div></div><div style="overflow:hidden;opacity:0.3"><div style="display:inline-block" class="cs-line cs-line-22"><span class="token-plain">RUN mkdir -p /www/pages</span></div></div><div></div></code></pre></div></div><div style="overflow:auto;height:100%;width:100%"><div class="cs-container" style="width:100%;height:100%;max-height:100%;position:relative"><pre class="cs-content css-18nwwvn" style="margin:0;height:100%;overflow:hidden"><code class="cs-scaled-content css-1nfcuqn" style="display:block;height:100%;transform:scale(1);transform-origin:center 0px"><div></div><div style="overflow:hidden;height:100px;opacity:1;transform:translateX(0px)"><div style="display:inline-block" class="cs-line cs-line-2"><span class="token-plain">​</span></div></div><div style="overflow:hidden;transform:translateX(250px);height:0;opacity:0"><div style="display:inline-block" class="cs-line cs-line-16"><span class="token-plain">...</span></div></div><div style="overflow:hidden;height:100px;opacity:0.3;transform:translateX(0px)"><div style="display:inline-block" class="cs-line cs-line-22"><span class="token-plain">RUN mkdir -p /www/pages</span></div></div><div></div></code></pre></div></div><div style="overflow:auto;height:100%;width:100%"><div class="cs-container" style="width:100%;height:100%;max-height:100%;position:relative"><pre class="cs-content css-18nwwvn" style="margin:0;height:100%;overflow:hidden"><code class="cs-scaled-content css-1nfcuqn" style="display:block;height:100%;transform:scale(1);transform-origin:center 0px"><div></div><div style="overflow:hidden"><div style="display:inline-block" class="cs-line cs-line-16"><span class="token-plain">...</span></div></div><div></div></code></pre></div></div><div style="overflow:auto;height:100%;width:100%"><div class="cs-container" style="width:100%;height:100%;max-height:100%;position:relative"><pre class="cs-content css-18nwwvn" style="margin:0;height:100%;overflow:hidden"><code class="cs-scaled-content css-1nfcuqn" style="display:block;height:100%;transform:scale(1);transform-origin:center 0px"><div></div><div style="overflow:hidden;transform:translateX(250px);height:0;opacity:0"><div style="display:inline-block" class="cs-line cs-line-2"><span class="token-plain">​</span></div></div><div style="overflow:hidden;transform:translateX(250px);height:0;opacity:0"><div style="display:inline-block" class="cs-line cs-line-4"><span class="token-symbol">FROM node</span><span class="token-punctuation">:</span><span class="token-variable">$</span><span class="token-punctuation">{</span><span class="token-plain">NODE_VER</span><span class="token-punctuation">}</span></div></div><div style="overflow:hidden;height:100px;opacity:1;transform:translateX(0px)"><div style="display:inline-block" class="cs-line cs-line-16"><span class="token-plain">...</span></div></div><div></div></code></pre></div></div><div style="overflow:auto;height:100%;width:100%"><div class="cs-container" style="width:100%;height:100%;max-height:100%;position:relative"><pre class="cs-content css-18nwwvn" style="margin:0;height:100%;overflow:hidden"><code class="cs-scaled-content css-1nfcuqn" style="display:block;height:100%;transform:scale(1);transform-origin:center 0px"><div></div><div style="overflow:hidden;opacity:0.3"><div style="display:inline-block" class="cs-line cs-line-2"><span class="token-plain">​</span></div></div><div style="overflow:hidden;opacity:1"><div style="display:inline-block" class="cs-line cs-line-4"><span class="token-symbol">FROM node</span><span class="token-punctuation">:</span><span class="token-variable">$</span><span class="token-punctuation">{</span><span class="token-plain">NODE_VER</span><span class="token-punctuation">}</span></div></div><div></div></code></pre></div></div><div style="overflow:auto;height:100%;width:100%"><div class="cs-container" style="width:100%;height:100%;max-height:100%;position:relative"><pre class="cs-content css-18nwwvn" style="margin:0;height:100%;overflow:hidden"><code class="cs-scaled-content css-1nfcuqn" style="display:block;height:100%;transform:scale(1);transform-origin:center 0px"><div></div><div style="overflow:hidden;opacity:0.3"><div style="display:inline-block" class="cs-line cs-line-2"><span class="token-plain">​</span></div></div><div style="overflow:hidden;opacity:0.3"><div style="display:inline-block" class="cs-line cs-line-4"><span class="token-symbol">FROM node</span><span class="token-punctuation">:</span><span class="token-variable">$</span><span class="token-punctuation">{</span><span class="token-plain">NODE_VER</span><span class="token-punctuation">}</span></div></div><div></div></code></pre></div></div><div style="overflow:auto;height:100%;width:100%"><div class="cs-container" style="width:100%;height:100%;max-height:100%;position:relative"><pre class="cs-content css-18nwwvn" style="margin:0;height:100%;overflow:hidden"><code class="cs-scaled-content css-1nfcuqn" style="display:block;height:100%;transform:scale(1);transform-origin:center 0px"><div></div><div style="overflow:hidden;opacity:0.3"><div style="display:inline-block" class="cs-line cs-line-2"><span class="token-plain">​</span></div></div><div style="overflow:hidden;opacity:0.3"><div style="display:inline-block" class="cs-line cs-line-4"><span class="token-symbol">FROM node</span><span class="token-punctuation">:</span><span class="token-variable">$</span><span class="token-punctuation">{</span><span class="token-plain">NODE_VER</span><span class="token-punctuation">}</span></div></div><div></div></code></pre></div></div><div style="overflow:auto;height:100%;width:100%"><div class="cs-container" style="width:100%;height:100%;max-height:100%;position:relative"><pre class="cs-content css-18nwwvn" style="margin:0;height:100%;overflow:hidden"><code class="cs-scaled-content css-1nfcuqn" style="display:block;height:100%;transform:scale(1);transform-origin:center 0px"><div></div><div style="overflow:hidden;opacity:0.3"><div style="display:inline-block" class="cs-line cs-line-2"><span class="token-plain">​</span></div></div><div style="overflow:hidden;opacity:0.3"><div style="display:inline-block" class="cs-line cs-line-4"><span class="token-symbol">FROM node</span><span class="token-punctuation">:</span><span class="token-variable">$</span><span class="token-punctuation">{</span><span class="token-plain">NODE_VER</span><span class="token-punctuation">}</span></div></div><div></div></code></pre></div></div><div style="overflow:auto;height:100%;width:100%"><div class="cs-container" style="width:100%;height:100%;max-height:100%;position:relative"><pre class="cs-content css-18nwwvn" style="margin:0;height:100%;overflow:hidden"><code class="cs-scaled-content css-1nfcuqn" style="display:block;height:100%;transform:scale(1);transform-origin:center 0px"><div></div><div style="overflow:hidden"><div style="display:inline-block" class="cs-line cs-line-2"><span class="token-plain">​</span></div></div><div style="overflow:hidden;opacity:0.3"><div style="display:inline-block" class="cs-line cs-line-4"><span class="token-symbol">FROM node</span><span class="token-punctuation">:</span><span class="token-variable">$</span><span class="token-punctuation">{</span><span class="token-plain">NODE_VER</span><span class="token-punctuation">}</span></div></div><div></div></code></pre></div></div><div style="overflow:auto;height:100%;width:100%"><div class="cs-container" style="width:100%;height:100%;max-height:100%;position:relative"><pre class="cs-content css-18nwwvn" style="margin:0;height:100%;overflow:hidden"><code class="cs-scaled-content css-1nfcuqn" style="display:block;height:100%;transform:scale(1);transform-origin:center 0px"><div></div><div style="overflow:hidden"><div style="display:inline-block" class="cs-line cs-line-2"><span class="token-plain">​</span></div></div><div style="overflow:hidden;height:100px;opacity:0.3;transform:translateX(0px)"><div style="display:inline-block" class="cs-line cs-line-4"><span class="token-symbol">FROM node</span><span class="token-punctuation">:</span><span class="token-variable">$</span><span class="token-punctuation">{</span><span class="token-plain">NODE_VER</span><span class="token-punctuation">}</span></div></div><div style="overflow:hidden;transform:translateX(250px);height:0;opacity:0"><div style="display:inline-block" class="cs-line cs-line-7"><span class="token-plain">CMD node server.js -p 80</span></div></div><div></div></code></pre></div></div><div style="overflow:auto;height:100%;width:100%"><div class="cs-container" style="width:100%;height:100%;max-height:100%;position:relative"><pre class="cs-content css-18nwwvn" style="margin:0;height:100%;overflow:hidden"><code class="cs-scaled-content css-1nfcuqn" style="display:block;height:100%;transform:scale(1);transform-origin:center 0px"><div></div><div style="overflow:hidden;opacity:1"><div style="display:inline-block" class="cs-line cs-line-2"><span class="token-plain">​</span></div></div><div style="overflow:hidden;opacity:1"><div style="display:inline-block" class="cs-line cs-line-7"><span class="token-plain">CMD node server.js -p 80</span></div></div><div></div></code></pre></div></div><div style="overflow:auto;height:100%;width:100%"><div class="cs-container" style="width:100%;height:100%;max-height:100%;position:relative"><pre class="cs-content css-18nwwvn" style="margin:0;height:100%;overflow:hidden"><code class="cs-scaled-content css-1nfcuqn" style="display:block;height:100%;transform:scale(1);transform-origin:center 0px"><div></div><div style="overflow:hidden;height:100px;opacity:0.3;transform:translateX(0px)"><div style="display:inline-block" class="cs-line cs-line-2"><span class="token-plain">​</span></div></div><div style="overflow:hidden;height:100px;opacity:0.3;transform:translateX(0px)"><div style="display:inline-block" class="cs-line cs-line-7"><span class="token-plain">CMD node server.js -p 80</span></div></div><div></div></code></pre></div></div></div></div><div style="flex:1;overflow:hidden;height:100%"><div style="display:flex;justify-content:center;align-items:center;height:100%"><div class="css-0"><p class="css-0">First, we expose the port. Of course, this would be a great place to use args, but we&#x27;ll leave that for tomorrow.</p><p class="css-0">Then, after the image is built, we can bind the ports while running the container by using the <code class="css-vgof0f">-p</code> argument:</p><pre class="css-1gxdjd5"><code class="css-vgof0f">$ docker run -p 80:8000 
+</code></pre></div></div></div></div></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1f30lmu"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Dockerfile Exercises</h2></div></div><div class="css-1i7ern4"><h1 class="css-1djqpdg">Dockerfile Exercises</h1></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-uefyxr"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Dockerfile Exercises</h2></div></div><div class="css-1i7ern4"><h2 class="css-1djqpdg">First Exercise</h2><p class="css-0">Build the <code class="css-vgof0f">exercises/docker/arg-env</code> image, with default arguments, and with supplied arguments.</p><p class="css-0">Then, run the image, with both default arguments, and with a supplied argument.</p></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Dockerfile Exercises</h2></div></div><div class="css-1i7ern4"><h2 class="css-1djqpdg">First Exercise (cont&#x27;d)</h2><details><summary>Solution</summary><pre class="css-1gxdjd5"><code class="language-sh css-vgof0f">$ docker build -t &lt;name&gt;
+$ docker build -t &lt;name&gt; --build-arg NODE_VER=8
+
+$ docker run &lt;name&gt;
+$ docker run -e ENV_VER=25 &lt;name&gt;
+</code></pre></details></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Dockerfile Exercises</h2></div></div><div class="css-1i7ern4"><h2 class="css-1djqpdg">Second Exercise</h2><p class="css-0">Build and experiment with the ping example.</p><details><summary>Hint</summary><p class="css-0">One thing you could do is mount the current folder as a volume instead of copying, and change the <code class="css-vgof0f">ping.sh</code> script between <code class="css-vgof0f">docker exec</code> calls.</p></details></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div><div class="css-ooyd37"><div class="css-1gwl8y3"><style>
+          img {
+            object-fit: contain;
+          }
+          details, pre, pre code, img {
+            max-width: 100%;
+            max-height: 100%;
+          }
+          pre, pre code {
+            white-space: pre-wrap;
+            padding: inherit;
+margin: inherit;
+font-size: inherit;
+background-color: inherit;
+border-radius: inherit;
+color: inherit;
+          }
+          code {
+            padding: .2em .4em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(27,31,35,.05);
+border-radius: 3;
+color: #e01e5a;
+          }
+        </style><div class="css-a6ntyr"><div class="css-w5l44c"><img src="https://jsleague.ro/images/logo/logo-flat.png" class="css-kgt57f"/><h2 class="css-9gbsyt">Intro to Docker</h2><h2 class="css-1j09cus"> - Dockerfile Exercises</h2></div></div><div class="css-1i7ern4"><h2 class="css-1djqpdg">Third Exercise</h2><p class="css-0">Build and experiment with the html example.</p><details><summary>Hint</summary><p class="css-0">By default, this Dockerfile will copy the <code class="css-vgof0f">index.html</code> file and expose port <code class="css-vgof0f">80</code> to the world. </p><p class="css-0">Try to make it run with a volume mount, and bind port 80 to something accessible on the host.</p><p class="css-0">Change the <code class="css-vgof0f">index.html</code> file, and verify that the changes are replicated in your browser.</p></details></div><div class="css-hllv6s">undefined/52</div><div class="css-1j04r96"><div class="css-1q81p9x"></div></div></div></div></div></div></div></div><script id="gatsby-script-loader">/*<![CDATA[*/window.pagePath="/print";/*]]>*/</script><script id="gatsby-chunk-mapping">/*<![CDATA[*/window.___chunkMapping={"app":["/app-2e370b978f0e4852af0b.js"],"component---node-modules-gatsby-theme-mdx-deck-src-templates-deck-js":["/component---node-modules-gatsby-theme-mdx-deck-src-templates-deck-js-e4f186737cd86e9d9e27.js"]};/*]]>*/</script><script src="/jsleague-docker/component---node-modules-gatsby-theme-mdx-deck-src-templates-deck-js-e4f186737cd86e9d9e27.js" async=""></script><script src="/jsleague-docker/app-2e370b978f0e4852af0b.js" async=""></script><script src="/jsleague-docker/commons-c5edb9337daecf29986f.js" async=""></script><script src="/jsleague-docker/webpack-runtime-0c3d99a58fcb08650eb7.js" async=""></script></body></html>
